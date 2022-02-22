@@ -1,3 +1,4 @@
+from datetime import datetime
 import texas_dps
 import random
 import yaml
@@ -11,6 +12,14 @@ if __name__=='__main__':
     booked = False
 
     while not booked:
+
+        # runs every 6 mins
+        next_cycle_after = 360
+
+        if datetime.now().hour == 5 or datetime.now().hour == 6:
+            next_cycle_after = (datetime.datetime.now().replace(hour=7, minute=0, second=0, microsecond=0) - datetime.datetime.now()).seconds
+            if next_cycle_after > 600:
+                next_cycle_after = 360
 
         for zip_code in z['zip_code'].split(','):
             if booked:
@@ -31,6 +40,7 @@ if __name__=='__main__':
             appointement.login()
             sleep(3)
             status, date = appointement.get_new_appointment()
+            appointement.driver.close()
 
             if status:
                 iterator = ''
@@ -54,4 +64,4 @@ if __name__=='__main__':
                     booked=True
                     break
         print('Not booked in this cycle')
-        sleep(3600)
+        sleep(next_cycle_after)

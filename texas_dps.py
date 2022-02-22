@@ -119,5 +119,8 @@ class dps_appointement:
             '//*[@id="app"]/section/div/main/div/section/div[2]/div/div[4]/div/div[2]/button/span').click()
 
         # click confirm
-        # self.driver.find_element_by_xpath(
-        #     '//*[@id="app"]/section/div/main/div/section/div[2]/div/div[4]/div/div[2]/button/span').text
+        self.driver.find_element_by_xpath(
+            '//*[@id="app"]/section/div/main/div/section/div[2]/div/div[4]/div/div[2]/button/span').text
+
+        # close tab
+        self.driver.close()
